@@ -1,41 +1,41 @@
 package Characters
 
-class NecromancerEVO1(unit: Character) extends CharacterState(unit) {
-  override def Skill1(): Unit ={
-    // TASK: ATTACK
+class NecromancerEVO1(unit: Character) extends State(unit) {
+  override def Skill1(): String ={
+    "Attack"
   }
-  override def Skill2(): Unit ={
-    // TASK: SUMMON
+  override def Skill2(): String ={
+    "Summon"
   }
-  override def Skill3(): Unit ={println("I am too dumb")}
-  override def Skill4(): Unit ={println("I am too dumb")}
+  override def Skill3(): String ={"locked"}
+  override def Skill4(): String ={"locked"}
 }
 
-class NecromancerEVO2(unit: Character) extends CharacterState(unit) {
-  override def Skill1(): Unit ={
-    // TASK: ATTACK
+class NecromancerEVO2(unit: Character) extends State(unit) {
+  override def Skill1(): String ={
+    "Attack"
   }
-  override def Skill2(): Unit ={
-    // TASK: SUMMON
+  override def Skill2(): String ={
+    "Summon"
   }
-  override def Skill3(): Unit ={
-    // TASK: SHACKLES
+  override def Skill3(): String ={
+    "Shackles"
   }
-  override def Skill4(): Unit ={println("I am too dumb")}
+  override def Skill4(): String ={"locked"}
 }
 
-class NecromancerEVO3(unit: Character) extends CharacterState(unit) {
-  override def Skill1(): Unit ={
-    // TASK: ATTACK
+class NecromancerEVO3(unit: Character) extends State(unit) {
+  override def Skill1(): String ={
+    "Attack"
   }
-  override def Skill2(): Unit ={
-    // TASK: HEAL
+  override def Skill2(): String ={
+    "Summon"
   }
-  override def Skill3(): Unit ={
-    // TASK: SHACKLES
+  override def Skill3(): String ={
+    "Shackles"
   }
-  override def Skill4(): Unit ={
-    // TASK: CRITICAL
+  override def Skill4(): String ={
+    "Critical"
   }
 }
 

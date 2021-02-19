@@ -2,25 +2,19 @@ package Characters
 
 object Generator {
 
-  def Random(Name: String): Character = {
-    val lore = Lore.characters(Name)
+  def Random(Class: String): Character = {
+    val lore = Lore.characters(Class)
 
     new Character( // returns created Character class object reference
-      Name,
+      Class,
       lore("Class"),
       lore("Attribute"),
       lore("Crewmates"),
-      lore("BasicModel"),
-      lore("1skillModel"),
-      lore("2skillModel"),
-      lore("3skillModel"),
-      lore("4skillModel"),
-      lore("FrozenModel"),
-      lore("DeadModel"),
       6,
       6,
       6,
-      6
+      6,
+      lore("ModelRef")
     )
   }
 
@@ -33,17 +27,27 @@ object Generator {
       lore("Class"),
       lore("Attribute"),
       lore("Crewmates"),
-      lore("BasicModel"),
-      lore("1skillModel"),
-      lore("2skillModel"),
-      lore("3skillModel"),
-      lore("4skillModel"),
-      lore("FrozenModel"),
-      lore("DeadModel"),
       lore("STR").toInt,
       lore("AGI").toInt,
       lore("INT").toInt,
-      lore("LVL").toInt
+      lore("LVL").toInt,
+      lore("ModelRef")
+    )
+  }
+
+  def Hero(name: String, Class: String): Character = {
+    val lore = Lore.characters(Class)
+
+    new Character( // returns created Character class object reference
+      name,
+      lore("Class"),
+      lore("Attribute"),
+      lore("Crewmates"),
+      1,
+      1,
+      1,
+      1,
+      lore("ModelRef")
     )
   }
 }

@@ -1,20 +1,29 @@
 package Lobby
 
-import Characters.Character
+import Characters.{Generator, Character}
 
-class Player(var XP: Int, var Hero: Character = null) {
+class Player(var XP: Int = 1, var Hero: Character = null) {
 
-  def newCharacter(): Unit = {
-    // new character
+  def newHero(name: String, Class: String): Unit = {
+    this.Hero = Generator.Hero(name, Class)
   }
 
-  def loadCharacter(): Unit = {
+  def loadHero(): Unit = {
     // load character
   }
 
   def addXP(gainedXP: Int): Int = {
     this.XP += gainedXP  // add xp
-    Hero.LVL = (0.3 * math.sqrt(this.XP / 4)).toInt  // updates level
-    Hero.LVL  // returns updated LVL
+    val updatedLVL: Int = (0.3 * math.sqrt(this.XP / 4)).toInt  // updates level
+
+    if (updatedLVL > Hero.LVL) {  // updates stats if hero levels up
+      Hero.LVL = updatedLVL
+      Hero.STR = Hero.LVL
+      Hero.AGI = Hero.LVL
+      Hero.INT = Hero.LVL
+      Hero.HealthMana()
+      Hero.Restore()
+    }
+    Hero.LVL  // returns LVL
   }
 }

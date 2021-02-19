@@ -187,11 +187,3 @@
 | Revive   | Ally      | Restore                | a lot MP | Complete revives dead ally |
 
 ## Some code
-
-```scala
-  // begins a fight with 
-def Fight(): Unit = {
-  // Fight()  begins a fight
-}
-abstract class Fighter (var HP: Int, var MP: Int) {}
-```

@@ -1,3 +1,0 @@
-class testing_Character {
-
-}
