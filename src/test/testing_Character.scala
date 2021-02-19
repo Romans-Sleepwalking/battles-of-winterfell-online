@@ -1,0 +1,3 @@
+class testing_Character {
+
+}
