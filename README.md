@@ -4,8 +4,9 @@
 
 ## Primary Tasks:
 
-1. Read requirements and Complete Clash with only one Attack action (Testing Clash)
-2. Begin Web Interface Development
+1. Edit whole documentation
+2. Read requirements and Complete Clash with only one Attack action (Testing Clash)
+3. Begin Web Interface Development
    
 ## Secondary Tasks:
 
