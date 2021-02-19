@@ -4,10 +4,8 @@
 
 ## Primary Tasks:
 
-1. Read requirements and Complete Party
-2. Read requirements and Complete Player
-3. Complete attack ability for each class
-4. Test Party
+1. Read requirements and Complete Clash with only one Attack action (Testing Clash)
+2. Begin Web Interface Development
    
 ## Secondary Tasks:
 
