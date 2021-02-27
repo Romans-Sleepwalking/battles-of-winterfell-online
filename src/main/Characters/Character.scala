@@ -1,17 +1,17 @@
 package Characters
 
-class Character(val Name: String,
-                val Class: String,     // creature's class to display
-                val ATR: String,       // main attribute
-                val Crewmates: String, // auto crew gen key
-                var STR: Int,  // strength
-                var AGI: Int,  // agility
-                var INT: Int,  // intelligence
-                var LVL: Int,  // level
-                val modelReference: String){  // model path reference
+class Character(val Name: String,        // displayed name
+                val Class: String,       // displayed class
+                val LVL: Int,            // displayed level
+                val ATR: String,         // main attribute
+                var STR: Int,            // strength
+                var AGI: Int,            // agility
+                var INT: Int,            // intelligence
+                val modelPath: String){  // model path
 
 
-  // STATIC PARAMETERS AND METHOD
+  // INITIALIZATION
+
 
   var maxHP: Int = 1
   var maxMP: Int = 1
@@ -27,21 +27,57 @@ class Character(val Name: String,
     }
   }
 
-  HealthMana() // initial health and mana
+  HealthMana() // calculates health and mana
   var HP: Int = this.maxHP // initial current HP
   var MP: Int = this.maxMP // initial current MP
 
 
   // DYNAMIC METHODS
 
-  def Restore(): Unit = { // fully restores fighter's HP and MP
-    this.HP = this.maxHP
-    this.MP = this.maxMP
+
+  def Restore(energize: Boolean = true, heal: Boolean = true): Unit = {
+    if (energize) {
+      this.MP = this.maxMP  // restores MP
+    }
+    if (heal) {
+      this.HP = this.maxHP  // restores HP
+    }
   }
+
+  def Restate(): State = {
+    if (this.Class == "Knight") {  // KNIGHT
+      new Knight(this)
+    }
+    else if (this.Class == "Crusader") {  // CRUSADER
+      if (LVL < 5){
+        new CrusaderLVL1(this)
+      }
+      else if (LVL > 9){
+        new CrusaderLVL10(this)
+      }
+      else {
+        new CrusaderLVL5(this)
+      }
+      new Knight(this)
+    }
+    else {  // NECROMANCER
+      if (LVL < 5) {
+        new NecromancerLVL1(this)
+      }
+      else if (LVL > 9) {
+        new NecromancerLVL10(this)
+      }
+      else {
+        new NecromancerLVL5(this)
+      }
+    }
+  }
+
 
   // STATE METHODS
 
-  var state: State = new Dummy(this)
+
+  var state: State = Restate()
 
   def Skill1(): String = {
     this.state.Skill1()
@@ -62,12 +98,5 @@ abstract class State(unit: Character) {
   def Skill2(): String
   def Skill3(): String
   def Skill4(): String
-}
-
-class Dummy(unit: Character) extends State(unit) {
-  override def Skill1(): String ={"locked"}
-  override def Skill2(): String ={"locked"}
-  override def Skill3(): String ={"locked"}
-  override def Skill4(): String ={"locked"}
 }
 

@@ -1,6 +1,6 @@
 package Characters
 
-class CrusaderEVO1(unit: Character) extends State(unit) {
+class CrusaderLVL1(unit: Character) extends State(unit) {
   override def Skill1(): String ={
     "Attack"
   }
@@ -11,7 +11,7 @@ class CrusaderEVO1(unit: Character) extends State(unit) {
   override def Skill4(): String ={"locked"}
 }
 
-class CrusaderEVO2(unit: Character) extends State(unit) {
+class CrusaderLVL5(unit: Character) extends State(unit) {
   override def Skill1(): String ={
     "Attack"
   }
@@ -24,7 +24,7 @@ class CrusaderEVO2(unit: Character) extends State(unit) {
   override def Skill4(): String ={"locked"}
 }
 
-class CrusaderEVO3(unit: Character) extends State(unit) {
+class CrusaderLVL10(unit: Character) extends State(unit) {
   override def Skill1(): String ={
     "Attack"
   }
@@ -35,7 +35,20 @@ class CrusaderEVO3(unit: Character) extends State(unit) {
     "Morale"
   }
   override def Skill4(): String ={
-    "Frenzy"
+    "Awaken"
   }
+}
+
+class Angel(unit: Character) extends State(unit) {
+  override def Skill1(): String ={
+    "UberAttack"
+  }
+  override def Skill2(): String ={
+    "Heal"
+  }
+  override def Skill3(): String ={
+    "Morale"
+  }
+  override def Skill4(): String ={"locked"}
 }
 

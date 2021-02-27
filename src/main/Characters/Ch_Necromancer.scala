@@ -1,6 +1,6 @@
 package Characters
 
-class NecromancerEVO1(unit: Character) extends State(unit) {
+class NecromancerLVL1(unit: Character) extends State(unit) {
   override def Skill1(): String ={
     "Attack"
   }
@@ -11,7 +11,7 @@ class NecromancerEVO1(unit: Character) extends State(unit) {
   override def Skill4(): String ={"locked"}
 }
 
-class NecromancerEVO2(unit: Character) extends State(unit) {
+class NecromancerLVL5(unit: Character) extends State(unit) {
   override def Skill1(): String ={
     "Attack"
   }
@@ -19,12 +19,12 @@ class NecromancerEVO2(unit: Character) extends State(unit) {
     "Summon"
   }
   override def Skill3(): String ={
-    "Shackles"
+    "Freeze"
   }
   override def Skill4(): String ={"locked"}
 }
 
-class NecromancerEVO3(unit: Character) extends State(unit) {
+class NecromancerLVL10(unit: Character) extends State(unit) {
   override def Skill1(): String ={
     "Attack"
   }
@@ -32,7 +32,7 @@ class NecromancerEVO3(unit: Character) extends State(unit) {
     "Summon"
   }
   override def Skill3(): String ={
-    "Shackles"
+    "Freeze"
   }
   override def Skill4(): String ={
     "Critical"

@@ -1,51 +1,55 @@
 package Characters
 
 object Lore {
-  val characters: Map[String, Map[String, String]] = Map(
-    "John" -> Map(
-      "Name" -> "John Snow",
-      "Class" -> "Crusader",
-      "Attribute" -> "STR",
-      "STR" -> "25",
-      "AGI" -> "30",
-      "INT" -> "5",
-      "LVL" -> "18",
-      "Crewmates" -> "North Warrior",
-      "ModelRef" -> "/ref"),
+  def getLore(key: String): Map[String, String] ={
+    val characters: Map[String, Map[String, String]] = Map(
+      "Snow" -> Map(
+        "Name" -> "John Snow",
+        "Class" -> "Crusader",
+        "Attribute" -> "STR"
+      ),
+      "Warrior" -> Map(
+        "Name" -> "North Warrior",
+        "Class" -> "Knight",
+        "Attribute" -> "STR"
+      ),
+      "Commander" -> Map(
+        "Name" -> "North Commander",
+        "Class" -> "Crusader",
+        "Attribute" -> "STR"
+      ),
+      "King" -> Map(
+        "Name" -> "Night King",
+        "Class" -> "Necromancer",
+        "Attribute" -> "INT"
+      ),
+      "Walker" -> Map(
+        "Name" -> "White Walker",
+        "Class" -> "Necromancer",
+        "Attribute" -> "STR"
+      ),
+      "Zombie" -> Map(
+        "Name" -> "White Walker",
+        "Class" -> "Knight",
+        "Attribute" -> "STR",
+      )
+    )
+    characters(key)
+  }
 
-    "North Warrior" -> Map(
-      "Attribute" -> "STR",
-      "Class" -> "Knight",
-      "Crewmates" -> "North Warrior",
-      "ModelRef" -> "/ref"),
+  // generate character
+  def Generate(key: String, LVL: Int, STR: Int = 15, AGI: Int = 15, INT: Int = 15): Character = {
+    val lore = getLore(key)
 
-    "North Commander" -> Map(
-      "Attribute" -> "STR",
-      "Class" -> "Crusader",
-      "Crewmates" -> "North Warrior",
-      "ModelRef" -> "/ref"),
-
-    "Night King" -> Map(
-      "Name" -> "Night King",
-      "Class" -> "Necromancer",
-      "Attribute" -> "INT",
-      "STR" -> "30",
-      "AGI" -> "30",
-      "INT" -> "40",
-      "LVL" -> "30",
-      "Crewmates" -> "Zombie",
-      "ModelRef" -> "/ref"),
-
-    "White Walker" -> Map(
-      "Class" -> "Necromancer",
-      "Attribute" -> "STR",
-      "Crewmates" -> "Zombie",
-      "ModelRef" -> "/ref"),
-
-    "Zombie" -> Map(
-      "Class" -> "Knight",
-      "Attribute" -> "STR",
-      "Crewmates" -> "Zombie",
-      "ModelRef" -> "/ref"),
-  )
+    new Character(  // returns initialized Character object's reference
+      lore("Name"),
+      lore("Class"),
+      LVL,
+      lore("Attribute"),
+      10,
+      10,
+      10,
+      key
+    )
+  }
 }
