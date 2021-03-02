@@ -46,7 +46,7 @@ class Character(val Name: String,        // displayed name
 
   def Restate(): State = {
     if (this.Class == "Knight") {  // KNIGHT
-      new Knight(this)
+      new State_Knight(this)
     }
     else if (this.Class == "Crusader") {  // CRUSADER
       if (LVL < 5){
@@ -58,7 +58,7 @@ class Character(val Name: String,        // displayed name
       else {
         new CrusaderLVL5(this)
       }
-      new Knight(this)
+      new State_Knight(this)
     }
     else {  // NECROMANCER
       if (LVL < 5) {

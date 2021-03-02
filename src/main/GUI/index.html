@@ -6,7 +6,8 @@
 </head>
 <body>
 <h1>Stop Right There, Identify Yourself!</h1>
-<form>
+
+<form action="lobby.html">
 <div class="row">
     <div class="col">
         <label>
@@ -15,27 +16,63 @@
         <label>
             <input type="password" id="logPassword" autocomplete="current-password" placeholder="Password" required>
         </label>
-        <input type="submit" name="submit" onclick=postLogin() value="Login">
+        <input type="submit" name="submit" onclick=Login() value="Login">
     </div>
 </div>
 </form>
 &nbsp;
-<form>
+<form action="lobby.html">
 <div class="row">
     <div class="col">
         <label>
             <input type="text" name="username" id="regUser" minlength=3 maxlength=10 placeholder="Username" required>
         </label>
         <label>
-            <input type="password" id="regPassword" autocomplete="new-password" minlength=8 maxlength=20 placeholder="Password" required>
+            <input type="password" id="regPassword1" autocomplete="new-password" minlength=8 maxlength=20 placeholder="Password" required>
         </label>
         <label>
-            <input type="password" autocomplete="current-password" placeholder="Password" required>
+            <input type="password" id="regPassword2" autocomplete="current-password" placeholder="Confirm Password" required>
         </label>
-        <input type="submit" onclick=postRegister() value="Register">
+        <input type="submit" onclick=SignUp() value="Register">
     </div>
 </div>
 </form>
-<script src="account.js"></script>
+
+<script>
+    const socket = io.connect("http://localhost:8080", {transports : ['websocket']});
+
+    function change_status(txt) {
+        document.getElementById("status_msg").innerHTML = txt;
+    }
+    socket.on('connected', function (event)
+        {
+            change_status("Connected_to_server")
+        }
+    );
+    function SignUp(){
+        const pass1 = document.getElementById("regPassword1");
+        const pass2 = document.getElementById("regPassword2");
+
+        if (pass1 === pass2) {
+            document.getElementById("regPassword1").value = "";
+            document.getElementById("regPassword2").value = "";
+
+            socket.emit("signup", JSON.stringify({
+                login: document.getElementById("regUser"),
+                password: pass2
+            }))
+        } else {
+            document.getElementById("status").textContent = "passwords do not match!"
+            console.log("passwords do not match!")
+        }
+    }
+    function Login(){
+        socket.emit("login", JSON.stringify({
+            login: document.getElementById("logUser"),
+            password: document.getElementById("logPassword")
+        }))
+    }
+</script>
+
 </body>
 </html>

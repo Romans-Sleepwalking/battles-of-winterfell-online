@@ -1,6 +1,6 @@
 package Characters
 
-class Knight(unit: Character) extends State(unit) {
+class State_Knight(unit: Character) extends State(unit) {
   override def Skill1(): String ={
     // TASK: ATTACK
     "Attack"

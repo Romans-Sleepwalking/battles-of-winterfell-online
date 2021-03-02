@@ -1,7 +1,7 @@
 package test
 
 import Characters.{Character, Generator}
-import Lobby.{Party, Player}
+import Rooms.{Party, Player}
 import org.scalatest._
 
 class PartyTest extends FunSuite {

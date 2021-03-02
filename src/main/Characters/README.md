@@ -3,11 +3,11 @@
 ***
 
 ## Character init params:
-* Name _(displayed during a game)_
-* Class, level _(displayed during a game, required to check init state)_
-* Attributes _(Strength, Agility, Intelligence)_
-* Main attribute _(required to calculate HP, MP, damage)_
-* Model path _(folder with character's model PNGs)_
+* Name _(just displayed during a game)_
+* Class, level _(keys to other character parameters and states + displayed during a game)_
+* Attributes _(STR - strength, health coefficient; AGI - agility, damage coefficient; INT - intelligence, mana coefficient)_
+* Main attribute _(buffs or debuffs max mana and max health bonuses)_
+* Model path _(folder reference where character's models are stored)_
 
 
 ## Calculated parameters from init params:
@@ -18,9 +18,9 @@
 
 
 ## Methods:
-* HealthMana _(calculates maxHP and maxMP from attributes)_
-* Restore _(refills HP and MP)_
-* Restate _(assign proper character state)_
+* HealthMana _(calculates maxHP and maxMP according to main attribute, and attribute values)_
+* Restore _(refills HP or MP, or both)_
+* Restate _(assign proper character state according to character's class and level)_
 * Skill1
 * Skill2
 * Skill3

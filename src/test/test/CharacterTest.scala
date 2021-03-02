@@ -2,7 +2,7 @@ package test
 
 import org.scalatest._
 
-import Lobby.Player
+import Rooms.Player
 import Characters.Character
 import Characters.Generator
 
