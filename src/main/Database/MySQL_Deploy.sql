@@ -39,11 +39,11 @@ INSERT INTO `accounts` (account_id, username, password, wins, loses, slot1_id, s
            (2, 'test', 'case12345', 9, 6, 5, 6, 7, 8);
 
 INSERT INTO `characters` (`owner_id`, `name`, class, LVL, ATR, STR, AGI, `INT`, modelPath)
-    VALUES (1, 'Johny Cocaine',  'Crusader',    18, 'STR', 16, 9,  7,  'Snow'),
-           (1, 'Commander',      'Commander',   8,  'STR', 11, 7,  3,  'Commander'),
-           (1, 'Emils',          'Knight',      7,  'STR', 7,  4,  4,  'Warrior'),
-           (1, 'Emils',          'Knight',      6,  'STR', 8,  3,  3,  'Warrior'),
-           (2, 'The Night King', 'Necromancer', 30, 'INT', 9,  14, 25, 'King'),
-           (2, 'Kevin',          'Necromancer', 9,  'INT', 12, 7,  15, 'Walker'),
-           (2, 'Dead Body',      'Zombie',      3,  'STR', 4,  9,  3,  'Zombie'),
-           (2, 'Old Woman',      'Zombie',      14, 'STR', 7,  14, 4,  'Zombie');
+    VALUES (1, 'Johny Cocaine', 'Crusader',    18, 'STR', 16, 9,  7,  'Snow'),
+           (1, 'Commander',     'Commander',   8,  'STR', 11, 7,  3,  'Commander'),
+           (1, 'Emils',         'Knight',      7,  'STR', 7,  4,  4,  'Warrior'),
+           (1, 'Emils',         'Knight',      6,  'STR', 8,  3,  3,  'Warrior'),
+           (2, 'The Night King','Necromancer', 30, 'INT', 9,  14, 25, 'King'),
+           (2, 'Kevin',         'Necromancer', 9,  'INT', 12, 7,  15, 'Walker'),
+           (2, 'Dead Body',     'Zombie',      3,  'STR', 4,  9,  3,  'Zombie'),
+           (2, 'Old Woman',     'Zombie',      14, 'STR', 7,  14, 4,  'Zombie');

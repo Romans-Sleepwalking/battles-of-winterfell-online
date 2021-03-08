@@ -3,6 +3,7 @@ package Server
 import com.corundumstudio.socketio.listener.{ConnectListener, DataListener, DisconnectListener}
 import com.corundumstudio.socketio.{AckRequest, Configuration, SocketIOClient, SocketIOServer}
 import play.api.libs.json._
+import scala.collection.mutable.ListBuffer
 
 
 class ConnectionListener() extends ConnectListener{
@@ -35,21 +36,23 @@ class StopServer(server: Server) extends DataListener[Nothing] {
   }
 }
 
-class Server {
+class Server(hostname: String, port: Int) {
+  var players_online: ListBuffer[SocketIOClient] = ListBuffer()
+
   val config: Configuration = new Configuration {
-    setHostname("localhost")
-    setPort(8080)
+    setHostname(hostname)
+    setPort(port)
   }
+
   val server: SocketIOServer = new SocketIOServer(config)
   server.addConnectListener(new ConnectionListener())
   server.addDisconnectListener(new DisconnectionListener())
-  server.addEventListener("regUser", classOf[JsValue], new RegisterUser())
-
+  server.addEventListener("regUser", classOf[Object], new RegisterUser())
   server.addEventListener("stop_server", classOf[Nothing], new StopServer(this))
   server.start()
 }
 
-/*
+  /*
 
 def toJSON: JsValue = Json.toJson(  // map to JSON
     Map("cashInRegister" -> cashInRegister.toString, // stringify values

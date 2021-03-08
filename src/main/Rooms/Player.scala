@@ -6,7 +6,10 @@ import Characters.Character
 class Player(dataSet: Map[String, Map[String, String]]) {
   val user: Map[String, String] = dataSet("user")
 
+  val id: String = user("id")
   val name: String = user("username")
+  val client: String = user("client")
+
   var wins: Int = user("wins").toInt
   var loses: Int = user("loses").toInt
 
@@ -29,4 +32,6 @@ class Player(dataSet: Map[String, Map[String, String]]) {
     slotCounter += 1
   }
 }
+
+
 

@@ -1,8 +1,9 @@
 package Rooms
 
 class Room(val number: Int) {
-  var p1: Player = _
-  var p2: Player = _
+  val dummy: Player = Dummies.InitDummy()
+  var p1: Player = dummy
+  var p2: Player = dummy
   var p1_status: String = "not ready"
   var p2_status: String = "not ready"
 
@@ -52,7 +53,7 @@ class Waiting(room: Room) extends State(room) {
 
   override def Leave(presser: Player): String = {
     if (presser == room.p1){
-      room.p1 = _
+      room.p1 = room.dummy
       room.p1_status = "not ready"
       room.state = new Empty(room)
       presser + "has left the room " + room.number
@@ -87,14 +88,14 @@ class Full(room: Room) extends State(room) {
       room.p1_status = "not ready"
       room.p2_status = "not ready"
       room.p1 = room.p2
-      room.p2 = _
+      room.p2 = room.dummy
       room.state = new Waiting(room)
       presser + "has left the room " + room.number + " and " + room.p1 + " is player1 now"
     }
     else if (presser == room.p2){
       room.p1_status = "not ready"
       room.p2_status = "not ready"
-      room.p2 = _
+      room.p2 = room.dummy
       room.state = new Waiting(room)
       presser + "has left the room " + room.number
     }
@@ -118,8 +119,8 @@ class Full(room: Room) extends State(room) {
       }
       room.p1_status = "not ready"
       room.p1_status = "not ready"
-      room.p1 = _
-      room.p2 = _
+      room.p1 = room.dummy
+      room.p2 = room.dummy
       room.state = new Empty(room)
 
       "Game Over! " + winner.name + " won! Room " + room.number + "is ready for the next game!"

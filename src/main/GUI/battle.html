@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Battles of Winterfell Online</title>
+    <link rel="stylesheet" href="battle.css">
+</head>
+<body>
+    <div class="slots">
+        <div class="slot" id="slot1">
+            <img src="img/models/L/Snow/Passive.png" alt="char1" id="char-1">
+            <button class="btn" onclick="selectSlot('1')" value="Choose">Select</button>
+        </div>
+        <div class="slot" id="slot2">
+            <img src="img/models/L/Commander/Passive.png" alt="char2" id="char-2">
+            <button class="btn" onclick="selectSlot('2')" value="Choose">Select</button>
+        </div>
+        <div class="slot" id="slot3">
+            <img src="img/models/L/Warrior/Passive.png" alt="char3" id="char-3">
+            <button class="btn" onclick="selectSlot('3')" value="Choose">Select</button>
+        </div>
+        <div class="slot" id="slot4">
+            <img src="img/models/L/Warrior/Passive.png" alt="char4" id="char-4">
+            <button class="btn" onclick="selectSlot('4')" value="Choose">Select</button>
+        </div>
+        <div class="slot" id="slot5">
+            <img src="img/models/R/King/Passive.png" alt="char5" id="char-5">
+            <button class="btn" onclick="selectSlot('5')" value="Choose">Select</button>
+        </div>
+        <div class="slot" id="slot6">
+            <img src="img/models/R/Walker/Passive.png" alt="char6" id="char-6">
+            <button class="btn" onclick="selectSlot('6')" value="Choose">Select</button>
+        </div>
+        <div class="slot" id="slot7">
+            <img src="img/models/R/Zombie/Passive.png" alt="char7" id="char-7">
+            <button class="btn" onclick="selectSlot('7')" value="Choose">Select</button>
+        </div>
+        <div class="slot" id="slot8">
+            <img src="img/models/R/Zombie/Passive.png" alt="char8" id="char-8">
+            <button class="btn" onclick="selectSlot('8')" value="Choose">Select</button>
+        </div>
+    </div>
+
+    <div class="row" id="optionMenu">
+        <div class="even-columns">
+            <div class="col even-rows">
+                <div class="row skill" id="skill1">
+                    <button class="skill-button" id="skill-icon-1" onclick="Action('1')"></button>
+                    <span>Skill 1</span>
+                    <span>Attack</span>
+                </div>
+                <div class="row skill" id="skill2">
+                    <button class="skill-button" id="skill-icon-2" onclick="Action('2')"></button>
+                    <span>Heal</span>
+                    <span>10 Mana Points</span>
+                    <span>Support your mates</span>
+                </div>
+            </div>
+            <div class="col even-rows">
+                <div class="row skill" id="skill3">
+                    <button class="skill-button" id="skill-icon-3" onclick="Action('3')"></button>
+                    <span>Morale</span>
+                    <span>30 Mana Points</span>
+                    <span>Raise teammates fighting spirit</span>
+                </div>
+                <div class="row skill" id="skill4">
+                    <button class="skill-button" id="skill-icon-4" onclick="Action('4')"></button>
+                    <span>Jagerbomb</span>
+                    <span>50 Mana Points</span>
+                    <span>LET'S GO!!!</span>
+                </div>
+            </div>
+        </div>
+        <div class="col ex3" >
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aperiam, asperiores consequuntur cum cumque deleniti dolorem enim eos esse fugit illo illum laudantium, nihil officiis possimus provident quaerat qui quos ratione soluta temporibus ullam voluptatum. Adipisci consequatur distinctio illo mollitia obcaecati quod repudiandae similique tempora. Beatae eveniet ex minima, nostrum quo repellendus reprehenderit vitae? Ab atque beatae consequatur, dolor dolorem et eveniet expedita facere harum labore nam necessitatibus officia, quibusdam reiciendis rerum, sint totam vel vitae? Dignissimos, ipsa rem. Alias aspernatur at aut et, eveniet labore magni obcaecati odit perferendis quam saepe, similique? Consectetur excepturi modi nostrum pariatur quam, quas.
+        </div>
+    </div>
+</body>
+<script src="./battle.js"></script>
+</html>

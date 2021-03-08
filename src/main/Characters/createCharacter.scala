@@ -50,7 +50,7 @@ object createCharacter {
       dataSet("str").toInt,  // strength value
       dataSet("agi").toInt,  // agility value
       dataSet("int").toInt,  // intelligence value
-      dataSet("model")       // character's model reference
+      dataSet("key")       // character's model reference
     )
   }
 }
