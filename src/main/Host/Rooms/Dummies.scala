@@ -1,6 +1,6 @@
-package Rooms
+package Host.Rooms
 
-import Characters.Character
+import Host.Characters.Character
 
 object Dummies {
   val dummyDataset: Map[String, Map[String, String]] = Map(

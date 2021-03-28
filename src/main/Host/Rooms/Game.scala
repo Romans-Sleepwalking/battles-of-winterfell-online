@@ -1,4 +1,4 @@
-package Rooms
+package Host.Rooms
 
 import scala.collection.mutable
 

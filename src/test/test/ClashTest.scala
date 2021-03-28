@@ -1,7 +1,5 @@
 package test
 
-import Characters.{Character, Generator}
-import Rooms.{Party, Player}
 import org.scalatest._
 
 class ClashTest extends FunSuite {

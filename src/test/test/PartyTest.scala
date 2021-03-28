@@ -1,12 +1,11 @@
 package test
 
-import Characters.{Character, Generator}
-import Rooms.{Party, Player}
 import org.scalatest._
 
 class PartyTest extends FunSuite {
-
+  /*
   def printInfo(party: Party): Unit = {
+
     println("\nGroup: " + party.name)
     println("Leader: " + party.leader.Name)
     println("Member quantity: " + party.size + "\n")
@@ -35,4 +34,5 @@ class PartyTest extends FunSuite {
     printInfo(northArmy)
     printInfo(undeadArmy)
   }
+  */
 }

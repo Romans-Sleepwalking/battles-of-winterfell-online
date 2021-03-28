@@ -1,4 +1,4 @@
-package Rooms
+package Host.Rooms
 
 class Room(val number: Int) {
   val dummy: Player = Dummies.InitDummy()

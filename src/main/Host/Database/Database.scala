@@ -1,8 +1,8 @@
-package Database
+package Host.Database
 
 import java.sql.{Connection, DriverManager, ResultSet}
 import java.sql.ResultSet
-
+/*
 
 trait DB {
   def Login(username: String, password: String): Map[String, String]
@@ -85,3 +85,5 @@ class Database extends DB {
     updateWinsStatement.executeQuery()  // executes: increment accounts loses by 1
   }
 }
+
+ */

@@ -1,6 +1,6 @@
-package Rooms
+package Host.Rooms
 
-import Characters.Character
+import Host.Characters.Character
 
 class Slot(val unit: Character,
            val side: String) {

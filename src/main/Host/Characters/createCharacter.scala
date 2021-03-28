@@ -1,4 +1,6 @@
-package Characters
+package Host.Characters
+
+import java.lang
 
 object createCharacter {
   def getLore(key: String): Map[String, String] ={
