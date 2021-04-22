@@ -16,32 +16,53 @@ body {
 }
 
 .slot {
-    position: relative;
-    height: 50vh;
-    width: 50vh;
+    position: absolute;
 }
 #slot1 {
-    position: relative;
-    top: -20%;
-    left: -7%;
-    z-index: 1;
+    top: 14%;
+    left: -3.5%;
+    z-index: 4;
 }
 #slot2 {
-    position: relative;
-    top: 4%;
-    left: 6%;
-    z-index: 2;
-}
-#slot3 {
-    position: relative;
-    top: 6%;
-    left: 12%;
+    top: 22%;
+    left: 8%;
     z-index: 3;
 }
+#slot3 {
+    top: 30%;
+    left: 19.5%;
+    z-index: 2;
+}
+#slot4 {
+    top: 38%;
+    left: 31%;
+    z-index: 1;
+}
+#slot5 {
+    top: 14%;
+    left: 83.5%;
+    z-index: 1;
+}
+#slot6 {
+    top: 22%;
+    left: 72%;
+    z-index: 2;
+}
+#slot7 {
+    top: 30%;
+    left: 60.5%;
+    z-index: 3;
+}
+#slot8 {
+    top: 38%;
+    left: 49%;
+    z-index: 4;
+}
+
 .slot img {
-    position: absolute;
-    width: 100%;
-    height: auto;
+    position: relative;
+    height: 20.5vw;
+    width: 20.5vw;
 }
 .slot .btn {
     position: absolute;
@@ -60,33 +81,40 @@ body {
 
 
 #optionMenu {
-    position: absolute;
     background-image: url("img/panel.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    position: fixed;
     width: 97%;
     height: 23%;
     bottom: 2%;
     right: 2%;
-    overflow: auto;
-}
-
-.even-columns {
-    display: flex;
-}
-.even-columns > * {
-    flex-basis: 100%
-}
-.even-rows {
-    display: flex;
-}
-.even-rows > * {
-    flex-basis: 100%
 }
 
 .skill {
-    top: 5%;
-    background-color: rgba(94, 72, 43, 0.9);
+    position: absolute;
+    top: 4%;
+    height: 90%;
+    width: 15%;
+    text-align: center;
+    line-height: 140%;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 160%;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}
+#skill1 {
+    left: 1%
+}
+#skill2 {
+    left: 17%
+}
+#skill3 {
+    left: 33%
+}
+#skill4 {
+    left: 49%
 }
 
 .skill-button {
@@ -96,6 +124,9 @@ body {
     height: 5rem;
     background-repeat: no-repeat;
     background-size: cover;
+}
+.skill-descr {
+    font-size: 70%;
 }
 #skill-icon-1 {
     background-image: url("img/skills/Crusader/1.jpg");
@@ -113,7 +144,7 @@ body {
 div.ex3 {
     position: absolute;
     background-color: white;
-    width: 30%;
+    width: 32%;
     height: 95%;
     bottom: 2%;
     right: 0.5%;

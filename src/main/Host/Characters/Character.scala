@@ -1,14 +1,42 @@
 package Host.Characters
 
+import Host.Lobby.Player
+
 class Character(
-    val Name: String,
+    val owner: Player,
+    val name: String,
+    val img: String,
     var Class: String,
     var STR: Int,
     var AGI: Int,
     var INT: Int,
-    var State: String = "ok",
-    var IMG: String = "passive"
+    var State: String = "passive",
+    var next: Character = null
                ){
+  /*
+  The Character class represents the playable unit-creature itself - the living-object which has health, abilities, etc.
+  Every Player has four characters
+
+  Every character has:
+    ·)  health and mana points: HP, MP
+    ·)  maximum health and mana point limits: maxHP, maxMP
+    ·)  lore Class: Knight, Crusader or Necromancer
+    ·)  name and img code to directly access the correct image folder
+    ·)  three attributes which will be used to calculate ability damage: STR, AGI, INT
+
+  By every character's turn, the Game must:
+    1) inform both players about the beginning of the turn.
+    2) send to active player his action options.
+    3) process the received action choice.
+    4) inform both players about the action consequences.
+    5) call a next turn.
+
+  The Game class contains:
+    ·)  A map of characters to their assigned IDs
+    ·)  A cycle of characters by assigning them graph-node relations
+    ·)  startTurn method which performs actions 1), 2)
+    ·)  endTurn method which performs actions 3), 4), 5)
+  */
   var maxHP: Int = this.STR * 10
   var maxMP: Int = this.INT * 10
   var HP: Int = this.maxHP // initial current HP
@@ -18,33 +46,32 @@ class Character(
   var abi1_name: String = _
   var abi1_description: String = _
   var abi1_target: String = _
+  var abi1_effect: String = _
   var abi1_cost: String = _
-  var abi1_icon: String = _
 
   var abi2_status: String = _
   var abi2_name: String = _
   var abi2_description: String = _
   var abi2_target: String = _
+  var abi2_effect: String = _
   var abi2_cost: String = _
-  var abi2_icon: String = _
 
   var abi3_status: String = "lock"
   var abi3_name: String = ""
   var abi3_description: String = ""
   var abi3_target: String = "nobody"
+  var abi3_effect: String = _
   var abi3_cost: String = ""
-  var abi3_icon: String = "lock.jpg"
 
   var abi4_status: String = "lock"
   var abi4_name: String = ""
   var abi4_description: String = ""
   var abi4_target: String = "nobody"
+  var abi4_effect: String = _
   var abi4_cost: String = ""
-  var abi4_icon: String = "lock.jpg"
 
 
   // BASIC METHODS
-
 
   def Restore(recharge: Boolean = true, heal: Boolean = true): Unit = {
     if (recharge) {
@@ -55,7 +82,7 @@ class Character(
     }
   }
 
-  def CheckHealth(): Unit = {
+  def checkHealth(): Unit = {
     if (this.HP <= 0){
       this.HP = 0
       this.MP = 0
@@ -75,7 +102,7 @@ class Character(
     else if (this.Class == "Necromancer") {  // NECROMANCER
       new Necromancer(this)
     }
-    else { // CRUSADER
+    else {  // CRUSADER
       new Crusader(this)
     }
   }

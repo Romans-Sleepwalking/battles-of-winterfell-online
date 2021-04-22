@@ -1,38 +1,26 @@
 package Host.Database
 
 import akka.actor.Actor
+import Host.{Login, SignUp, incrementWins, incrementLoses}
 import play.api.libs.json.JsValue
-import Host.{SignUp, Login}
+import com.corundumstudio.socketio.SocketIOClient
 
 
 class DatabaseActor() extends Actor {
-  def TODO(): Int = {
-    4
-  }
-  /*
-  val DB: MySQLDatabase = new MySQLDatabase
+  val DB: Database = new Database()
 
-  /*
-  val database: Database = dbType match {
-    case "mySQL" => new MySQLDatabase()
-    case "test" => new TestDatabase()
-  }*/
-
-  override def receive: Receive = {
-    case received: LoadGame =>
-      DB.Load(received.game)
-
-    case received: SaveGame =>
-      DB.Save(received.game)
-  }
-  */
   def receive: Receive = {
+    case SignUp(regData: JsValue, socket: SocketIOClient) =>
+      DB.SignUp(regData, socket)
 
-    case SignUp(regData: JsValue) =>
-      // TODO
+    case Login(logData: JsValue, socket: SocketIOClient) =>
+      DB.Login(logData, socket)
 
-    case Login(regData: JsValue) =>
-    // TODO
+    case incrementWins(username: String) =>
+      DB.incrementWins(username)
+
+    case incrementLoses(username: String) =>
+      DB.incrementLoses(username)
   }
 }
 

@@ -33,46 +33,11 @@
         <label>
             <input type="password" id="regPassword2" autocomplete="current-password" placeholder="Confirm Password" required>
         </label>
-        <input type="submit" onclick=SignUp() value="Register">
+        <input type="submit" onclick=SignUp() value="Sign Up">
     </div>
 </div>
+
 </form>
-
-<script>
-    const socket = io.connect("http://localhost:8080", {transports : ['websocket']});
-
-    function change_status(txt) {
-        document.getElementById("status_msg").innerHTML = txt;
-    }
-    socket.on('connected', function (event)
-        {
-            change_status("Connected_to_server")
-        }
-    );
-    function SignUp(){
-        const pass1 = document.getElementById("regPassword1");
-        const pass2 = document.getElementById("regPassword2");
-
-        if (pass1 === pass2) {
-            document.getElementById("regPassword1").value = "";
-            document.getElementById("regPassword2").value = "";
-
-            socket.emit("signup", JSON.stringify({
-                login: document.getElementById("regUser"),
-                password: pass2
-            }))
-        } else {
-            document.getElementById("status").textContent = "passwords do not match!"
-            console.log("passwords do not match!")
-        }
-    }
-    function Login(){
-        socket.emit("login", JSON.stringify({
-            login: document.getElementById("logUser"),
-            password: document.getElementById("logPassword")
-        }))
-    }
-</script>
-
 </body>
+<script src="./landing.js"></script>
 </html>
