@@ -10,38 +10,32 @@ class Character(
     var STR: Int,
     var AGI: Int,
     var INT: Int,
-    var State: String = "passive",
+    var State: String = "Passive",
     var next: Character = null
                ){
   /*
   The Character class represents the playable unit-creature itself - the living-object which has health, abilities, etc.
   Every Player has four characters
 
-  Every character has:
+  Character has parameters:
     ·)  health and mana points: HP, MP
     ·)  maximum health and mana point limits: maxHP, maxMP
     ·)  lore Class: Knight, Crusader or Necromancer
     ·)  name and img code to directly access the correct image folder
     ·)  three attributes which will be used to calculate ability damage: STR, AGI, INT
 
-  By every character's turn, the Game must:
-    1) inform both players about the beginning of the turn.
-    2) send to active player his action options.
-    3) process the received action choice.
-    4) inform both players about the action consequences.
-    5) call a next turn.
+  Character abilities has been directed inside lore Classes
 
-  The Game class contains:
-    ·)  A map of characters to their assigned IDs
-    ·)  A cycle of characters by assigning them graph-node relations
-    ·)  startTurn method which performs actions 1), 2)
-    ·)  endTurn method which performs actions 3), 4), 5)
+  Character has methods:
+    ·)  checkHealth:  to self-check if he/she is not dead
+    ·)  stateMe:  to self-re-state from Dead or Frozen states
+    ·)  checkAbilities:   to update the abilities
+    ·)  Update:   calls stateMe and checkAbilities
+    ·)  Skill1:   basic
+    ·)  Skill2:   intermediate
+    ·)  Skill3:   advanced
+    ·)  Skill4:   ultimate
   */
-  var maxHP: Int = this.STR * 10
-  var maxMP: Int = this.INT * 10
-  var HP: Int = this.maxHP // initial current HP
-  var MP: Int = this.maxMP // initial current MP
-
   var abi1_status: String = _
   var abi1_name: String = _
   var abi1_description: String = _
@@ -56,60 +50,46 @@ class Character(
   var abi2_effect: String = _
   var abi2_cost: String = _
 
-  var abi3_status: String = "lock"
-  var abi3_name: String = ""
-  var abi3_description: String = ""
-  var abi3_target: String = "nobody"
+  var abi3_status: String = _
+  var abi3_name: String = _
+  var abi3_description: String = _
+  var abi3_target: String = _
   var abi3_effect: String = _
-  var abi3_cost: String = ""
+  var abi3_cost: String = _
 
-  var abi4_status: String = "lock"
-  var abi4_name: String = ""
-  var abi4_description: String = ""
-  var abi4_target: String = "nobody"
+  var abi4_status: String = _
+  var abi4_name: String = _
+  var abi4_description: String = _
+  var abi4_target: String = _
   var abi4_effect: String = _
-  var abi4_cost: String = ""
+  var abi4_cost: String = _
 
-
-  // BASIC METHODS
-
-  def Restore(recharge: Boolean = true, heal: Boolean = true): Unit = {
-    if (recharge) {
-      this.MP = this.maxMP  // restores MP
-    }
-    if (heal) {
-      this.HP = this.maxHP  // restores HP
-    }
-  }
+  var maxHP: Int = this.STR * 10
+  var maxMP: Int = this.INT * 10
+  var HP: Int = this.maxHP // initial current HP
+  var MP: Int = this.maxMP // initial current MP
 
   def checkHealth(): Unit = {
     if (this.HP <= 0){
       this.HP = 0
       this.MP = 0
-      this.State = "dead"
       this.state = new Dead(this)
     }
   }
 
-
   // STATE METHODS
 
-
-  def StateMe(): State ={
-    if (this.Class == "Knight") {  // KNIGHT
+  def stateMe(): State ={
+    if (this.Class == "Knight") {
       new Knight(this)
     }
-    else if (this.Class == "Necromancer") {  // NECROMANCER
+    else if (this.Class == "Necromancer") {
       new Necromancer(this)
     }
-    else {  // CRUSADER
+    else {
       new Crusader(this)
     }
   }
-
-
-  // STATE METHODS
-
 
   def Skill1(target: Character): String = {
     this.state.Skill1(target)
@@ -123,16 +103,17 @@ class Character(
   def Skill4(target: Character): String = {
     this.state.Skill4(target)
   }
-  def CheckAbilities(): Unit = {
-    this.state.CheckAbilities()
+  def checkAbilities(): Unit = {
+    this.state.checkAbilities()
   }
 
+  var state: State = stateMe()  // Init state
+  this.checkAbilities()
 
-  // INIT CONTINUES
-
-
-  var state: State = StateMe()
-  CheckAbilities()
+  def Update(): Unit = {
+    this.state = stateMe()
+    this.checkAbilities()
+  }
 }
 
 abstract class State(char: Character) {
@@ -140,6 +121,6 @@ abstract class State(char: Character) {
   def Skill2(target: Character): String
   def Skill3(target: Character): String
   def Skill4(target: Character): String
-  def CheckAbilities()
+  def checkAbilities()
 }
 

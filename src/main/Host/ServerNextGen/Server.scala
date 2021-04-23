@@ -1,5 +1,5 @@
 package Host.ServerNextGen
-
+/*
 import Host.Database.DatabaseActor
 import Host.Lobby.{Player, Lobby}
 import akka.actor.{ActorRef, ActorSystem, PoisonPill, Props}
@@ -114,3 +114,4 @@ object Launch {
     val server: Host.Server.Server = new Host.Server.Server
   }
 }
+*/

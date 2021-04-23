@@ -11,9 +11,7 @@ case class incrementWins(username: String)
 case class incrementLoses(username: String)
 
 // Game messages
-case class Fight(partyData: JsValue, server: Server)
-case class Action(actionData: JsValue, server: Server)
+case object Join
+case object Leave
+case class Action(data: JsValue)
 
-// DEMO messages
-case class FightDemo(socket: SocketIOClient)
-case class ActionDemo(actionData: JsValue, socket: SocketIOClient)

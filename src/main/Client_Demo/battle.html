@@ -8,27 +8,27 @@
 <body>
     <div class="slots">
         <div class="slot" id="slot1">
-            <img src="img/models/L/Snow/Passive.png" width="250" height="250" alt="char1" id="char-1">
+            <img src="img/models/L/Zombie/Passive.png" width="250" height="250" alt="char1" id="char-1">
             <button id="btn1" class="btn" onclick="selectTargetListener('1', 'Snow')" value="Choose">Select</button>
         </div>
         <div class="slot" id="slot2">
-            <img src="img/models/L/Commander/Passive.png" width="250" height="250" alt="char2" id="char-2">
+            <img src="img/models/L/Zombie/Passive.png" width="250" height="250" alt="char2" id="char-2">
             <button id="btn2" class="btn" onclick="selectTargetListener('2', 'Commander')" value="Choose">Select</button>
         </div>
         <div class="slot" id="slot3">
-            <img src="img/models/L/Warrior/Passive.png" width="250" height="250" alt="char3" id="char-3">
+            <img src="img/models/L/Zombie/Passive.png" width="250" height="250" alt="char3" id="char-3">
             <button id="btn3" class="btn" onclick="selectTargetListener('3')" value="Choose">Select</button>
         </div>
         <div class="slot" id="slot4">
-            <img src="img/models/L/Warrior/Passive.png" width="250" height="250" alt="char4" id="char-4">
+            <img src="img/models/L/Zombie/Passive.png" width="250" height="250" alt="char4" id="char-4">
             <button id="btn4" class="btn" onclick="selectTargetListener('4')" value="Choose">Select</button>
         </div>
         <div class="slot" id="slot5">
-            <img src="img/models/R/King/Passive.png" width="250" height="250" alt="char5" id="char-5">
+            <img src="img/models/R/Zombie/Passive.png" width="250" height="250" alt="char5" id="char-5">
             <button id="btn5" class="btn" onclick="selectTargetListener('5')" value="Choose">Select</button>
         </div>
         <div class="slot" id="slot6">
-            <img src="img/models/R/Walker/Passive.png" width="250" height="250" alt="char6" id="char-6">
+            <img src="img/models/R/Zombie/Passive.png" width="250" height="250" alt="char6" id="char-6">
             <button id="btn6" class="btn" onclick="selectTargetListener('6')" value="Choose">Select</button>
         </div>
         <div class="slot" id="slot7">
@@ -44,31 +44,41 @@
     <div class="row" id="optionMenu">
         <div class="skill" id="skill1">
             <button class="skill-button" id="skill-icon-1" onclick="selectSkillListener('1')"></button><br>
-            <span class="skill-name" id="skill-name-1"></span>
+            <span class="skill-name" id="skill-name-1">loading</span>
             <span id="skill-cost-1"></span><br>
-            <span class="skill-descr" id="skill-descr-1"></span>
+            <span class="skill-descr" id="skill-descr-1">loading</span>
         </div>
         <div class="skill" id="skill2">
             <button class="skill-button" id="skill-icon-2" onclick="selectSkillListener('2')"></button><br>
-            <span class="skill-name" id="skill-name-2"></span>
+            <span class="skill-name" id="skill-name-2">loading</span>
             <span id="skill-cost-2"></span><br>
-            <span class="skill-descr" id="skill-descr-2"></span>
+            <span class="skill-descr" id="skill-descr-2">loading</span>
         </div>
         <div class="skill" id="skill3">
             <button class="skill-button" id="skill-icon-3" onclick="selectSkillListener('3')"></button><br>
-            <span class="skill-name" id="skill-name-3"></span>
+            <span class="skill-name" id="skill-name-3">loading</span>
             <span id="skill-cost-3"></span><br>
-            <span class="skill-descr" id="skill-descr-3"></span>
+            <span class="skill-descr" id="skill-descr-3">loading</span>
         </div>
         <div class="skill" id="skill4">
             <button class="skill-button" id="skill-icon-4" onclick="selectSkillListener('4')"></button><br>
-            <span class="skill-name" id="skill-name-4"></span>
+            <span class="skill-name" id="skill-name-4">loading</span>
             <span id="skill-cost-4"></span><br>
-            <span class="skill-descr" id="skill-descr-4"></span>
+            <span class="skill-descr" id="skill-descr-4">loading</span>
         </div>
 
-        <div id="game_console" class="col ex3"></div>
+        <div id="game_console" class="col ex3">Connecting...</div>
     </div>
+
+    <script src="./battle.js"></script>
 </body>
-<script src="./battle.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </html>

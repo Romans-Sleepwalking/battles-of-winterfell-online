@@ -1,49 +1,15 @@
 package Host.Characters
-import java.util.Calendar
-
-
-class AbilityCalc(val char: Character) {
-  def CheckMana(MP: Int, cost: Int): String ={
-    if (MP >= cost) {
-      "ok"
-    }
-    else {
-      "mana"
-    }
-  }
-
-  def TimeString(): String = {
-    val time = Calendar.getInstance()
-    time.get(Calendar.HOUR).toString + ":" + time.get(Calendar.MINUTE).toString + ":" +
-    time.get(Calendar.SECOND).toString + " | "
-  }
-
-  def ActionStatement(action: String, value: String, units: String, target: Character): String = {
-    TimeString() + this.char.name + " " + action + " " + target.name + " with " + value + " " +
-    units + "! " + target.name + " " + target.HP.toString + "/" + target.maxHP.toString + " HP left."
-  }
-
-  def Attack(dmg: Int, target: Character, multiplier: Double = 1, action: String = "attacked"): String ={
-    target.HP -= dmg * multiplier
-    target.CheckHealth()
-    this.ActionStatement(action, (dmg * multiplier).toString, "damage", target)
-  }
-
-  def InitAttack(): Int ={
-    this.char.abi1_status = "ok"
-    this.char.abi1_name = "Attack"
-    this.char.abi1_description = ""
-    this.char.abi1_target = "enemy"
-    this.char.abi1_effect = "Attacked"
-    this.char.abi1_cost = "0"
-    this.char.AGI * 6 + this.char.STR * 3 + this.char.INT * 2
-  }
-}
 
 
 class Knight(char: Character) extends State(char) {
-  val calc: AbilityCalc = new AbilityCalc(char)
-  val dmg: Int = this.calc.InitAttack()
+  /*
+  The Knight state class is a most basic unit lore class
+    1st Ability - Attack:   1.0 attack damage
+    2nd Ability - Rush:     1.7 attack damage for 15 mana points
+  */
+  this.char.State = "ok"
+  val calc: abilityCalculator = new abilityCalculator(char)
+  val dmg: Int = this.calc.haveAttack
 
   char.abi2_status = "ok"
   char.abi2_name = "Rush"
@@ -58,6 +24,7 @@ class Knight(char: Character) extends State(char) {
   char.abi3_target = "nobody"
   char.abi3_effect = ""
   char.abi3_cost = ""
+
   char.abi4_status = "lock"
   char.abi4_name = ""
   char.abi4_description = ""
@@ -65,30 +32,33 @@ class Knight(char: Character) extends State(char) {
   char.abi4_effect = ""
   char.abi4_cost = ""
 
-
-  // METHODS
-
   override def Skill1(target: Character): String ={
     calc.Attack(this.dmg, target)
   }
-
   override def Skill2(target: Character): String ={
-    this.char.MP - this.char.abi2_cost
+    this.char.MP - this.char.abi2_cost.toInt
     calc.Attack(this.dmg, target, 1.7, "slammed")
   }
   override def Skill3(target: Character): String = {"lock"}
   override def Skill4(target: Character): String = {"lock"}
-
-  override def CheckAbilities(): Unit ={
-    this.char.abi1_status = this.calc.CheckMana(this.char.MP, this.char.abi1_cost.toInt)
-    this.char.abi2_status = this.calc.CheckMana(this.char.MP, this.char.abi2_cost.toInt)
+  override def checkAbilities(): Unit ={
+    this.char.abi1_status = this.calc.checkMana(this.char.MP, this.char.abi1_cost.toInt)
+    this.char.abi2_status = this.calc.checkMana(this.char.MP, this.char.abi2_cost.toInt)
   }
 }
 
 
 class Necromancer(val char: Character) extends State(char) {
-  val calc: AbilityCalc = new AbilityCalc(char)
-  val dmg: Int = this.calc.InitAttack()
+  /*
+  The Necromancer state class is an advanced wizard unit lore class
+    1st Ability - Attack:   1.0 attack damage
+    2nd Ability - Summon:   resurrects dead unit for 30 mana points
+    3rd Ability - Freeze:   resurrects dead unit for 30 mana points
+    4th Ability - Critical: 3.5 attack damage for 30 mana points
+  */
+  this.char.State = "ok"
+  val calc: abilityCalculator = new abilityCalculator(char)
+  val dmg: Int = this.calc.haveAttack
 
   char.abi2_status = "ok"
   char.abi2_name = "Summon"
@@ -111,47 +81,46 @@ class Necromancer(val char: Character) extends State(char) {
   char.abi4_effect = "Attacked"
   char.abi4_cost = "70"
 
-
-  // METHODS
-
   override def Skill1(target: Character): String ={
     calc.Attack(this.dmg, target)
   }
-
   override def Skill2(target: Character): String ={
-    this.char.MP -= 30
-    target.state = new Knight(target)
-    target.State = "ok"
-    target.Class = "zombie"
+    this.char.MP - this.char.abi2_cost.toInt
     target.HP = 8 * this.char.INT
     target.MP = 4 * this.char.INT
-    this.calc.ActionStatement("animated", (4 * this.char.INT).toString, "mana points", target)
+    target.state = new Knight(target)
+    target.Update()
+    this.calc.getActionStatement("animated", (4 * this.char.INT).toString, "mana points", target)
   }
-
   override def Skill3(target: Character): String ={
-    this.char.MP -= 40
+    this.char.MP - this.char.abi3_cost.toInt
     target.state = new Frozen(target)
-    target.State = "frozen"
-    this.calc.ActionStatement("cooled", "frost wind for next 2", "rounds", target)
+    this.calc.getActionStatement("cooled", "frost wind for next 2", "rounds", target)
   }
-
   override def Skill4(target: Character): String ={
-    this.char.MP - this.char.abi4_cost
+    this.char.MP - this.char.abi4_cost.toInt
     calc.Attack(this.dmg, target, 3.5, "DEVASTATED")
   }
-
-  override def CheckAbilities(): Unit ={
-    this.char.abi1_status = this.calc.CheckMana(this.char.MP, this.char.abi1_cost.toInt)
-    this.char.abi2_status = this.calc.CheckMana(this.char.MP, this.char.abi2_cost.toInt)
-    this.char.abi3_status = this.calc.CheckMana(this.char.MP, this.char.abi3_cost.toInt)
-    this.char.abi4_status = this.calc.CheckMana(this.char.MP, this.char.abi4_cost.toInt)
+  override def checkAbilities(): Unit ={
+    this.char.abi1_status = this.calc.checkMana(this.char.MP, this.char.abi1_cost.toInt)
+    this.char.abi2_status = this.calc.checkMana(this.char.MP, this.char.abi2_cost.toInt)
+    this.char.abi3_status = this.calc.checkMana(this.char.MP, this.char.abi3_cost.toInt)
+    this.char.abi4_status = this.calc.checkMana(this.char.MP, this.char.abi4_cost.toInt)
   }
 }
 
 
 class Crusader(val char: Character) extends State(char) {
-  val calc: AbilityCalc = new AbilityCalc(char)
-  val dmg: Int = this.calc.InitAttack()
+  /*
+  The Crusader state class is an advanced warrior unit lore class
+    1st Ability - Attack:    1.0 attack damage
+    2nd Ability - Heal:      heals himself or an ally
+    3rd Ability - Morale:    heals and makes more agile the allies for 40 mana points
+    4th Ability - Jagerbomb: re-states to angel for 70 mana points
+  */
+  this.char.State = "ok"
+  val calc: abilityCalculator = new abilityCalculator(char)
+  val dmg: Int = this.calc.haveAttack
 
   char.abi2_status = "ok"
   char.abi2_name = "Heal"
@@ -174,46 +143,50 @@ class Crusader(val char: Character) extends State(char) {
   char.abi4_effect = "Passive"
   char.abi4_cost = "80"
 
-
-  // METHODS
-
   override def Skill1(target: Character): String ={
-    calc.Attack(this.dmg, target)
+    this.calc.Attack(this.dmg, target)
   }
-
   override def Skill2(target: Character): String ={
     val heal: Int = 10 * this.char.INT
     target.HP += heal
-    this.calc.ActionStatement("healed", heal.toString, "health points", target)
+    this.calc.getActionStatement("healed", heal.toString, "health points", target)
   }
-
   override def Skill3(target: Character): String ={
-    this.char.MP -= 40
+    this.char.MP - this.char.abi3_cost.toInt
     this.char.AGI += 8
     this.char.HP += 15
-    this.calc.TimeString() + "The Northern Alliance boosted their morale by 8 AGI, 15 HP and 15 MP!"
+    this.calc.getTimeString() + "The Northern Alliance boosted their morale by 8 AGI, 15 HP and 15 MP!"
   }
-
   override def Skill4(target: Character): String ={
+    this.char.MP - this.char.abi4_cost.toInt
     this.char.state = new Angel(this.char)
-    this.char.maxHP += 30
-    this.char.HP += 50
-    this.calc.TimeString() + "PFSS GLOG-GLOG-GLOG-GLOG-GLOG-GLOG-GLOG"
+    this.calc.getTimeString() + "PFSS GLOG-GLOG-GLOG-GLOG-GLOG-GLOG-GLOG"
   }
-
-  override def CheckAbilities(): Unit ={
-    this.char.abi1_status = this.calc.CheckMana(this.char.MP, this.char.abi1_cost.toInt)
-    this.char.abi2_status = this.calc.CheckMana(this.char.MP, this.char.abi2_cost.toInt)
-    this.char.abi3_status = this.calc.CheckMana(this.char.MP, this.char.abi3_cost.toInt)
-    this.char.abi4_status = this.calc.CheckMana(this.char.MP, this.char.abi4_cost.toInt)
+  override def checkAbilities(): Unit ={
+    this.char.abi1_status = this.calc.checkMana(this.char.MP, this.char.abi1_cost.toInt)
+    this.char.abi2_status = this.calc.checkMana(this.char.MP, this.char.abi2_cost.toInt)
+    this.char.abi3_status = this.calc.checkMana(this.char.MP, this.char.abi3_cost.toInt)
+    this.char.abi4_status = this.calc.checkMana(this.char.MP, this.char.abi4_cost.toInt)
   }
 }
 
 
 class Angel(val char: Character) extends State(char) {
+  /*
+  The Angel state class is a legendary warrior unit lore class
+    1st Ability - Attack:    1.0 attack damage
+    2nd Ability - Heal:      heals himself or an ally
+    3rd Ability - Morale:    heals and makes more agile the allies for 40 mana points
+  */
   this.char.Class = "Angel"
-  val calc: AbilityCalc = new AbilityCalc(char)
-  val dmg: Int = this.calc.InitAttack()
+  this.char.State = "ok"
+  this.char.maxHP = 999
+  this.char.maxMP = 999
+  this.char.HP += 50
+  this.char.AGI += 20
+  this.char.INT += 20
+  val calc: abilityCalculator = new abilityCalculator(char)
+  val dmg: Int = this.calc.haveAttack
 
   char.abi2_status = "ok"
   char.abi2_name = "Heal"
@@ -236,36 +209,36 @@ class Angel(val char: Character) extends State(char) {
   char.abi4_effect = ""
   char.abi4_cost = ""
 
-  // METHODS
-
   override def Skill1(target: Character): String ={
-    calc.Attack(this.dmg, target, 1.5, "Burned")
+    calc.Attack(this.dmg, target)
   }
-
   override def Skill2(target: Character): String ={
-    val heal: Int = 20 * this.char.INT
+    this.char.MP - this.char.abi2_cost.toInt
+    val heal: Int = 10 * this.char.INT
     target.HP += heal
-    this.calc.ActionStatement("healed", heal.toString, "health points", target)
+    this.calc.getActionStatement("healed", heal.toString, "health points", target)
   }
-
   override def Skill3(target: Character): String ={
-    this.char.MP -= 50
-    this.char.AGI += 20
-    this.char.HP += 30
-    this.calc.TimeString() + "The Northern Alliance has been blessed by 20 AGI, 30 HP and 30 MP!"
+    this.char.MP - this.char.abi3_cost.toInt
+    this.char.AGI += 8
+    this.char.HP += 15
+    this.calc.getTimeString() + "The Northern Alliance boosted their morale by 8 AGI, 15 HP and 15 MP!"
   }
-
-  override def Skill4(target: Character): String ={"lock"}
-
-  override def CheckAbilities(): Unit ={
-    this.char.abi1_status = this.calc.CheckMana(this.char.MP, this.char.abi1_cost.toInt)
-    this.char.abi2_status = this.calc.CheckMana(this.char.MP, this.char.abi2_cost.toInt)
-    this.char.abi3_status = this.calc.CheckMana(this.char.MP, this.char.abi3_cost.toInt)
+  override def Skill4(target: Character): String = {"lock"}
+  override def checkAbilities(): Unit ={
+    this.char.abi1_status = this.calc.checkMana(this.char.MP, this.char.abi1_cost.toInt)
+    this.char.abi2_status = this.calc.checkMana(this.char.MP, this.char.abi2_cost.toInt)
+    this.char.abi3_status = this.calc.checkMana(this.char.MP, this.char.abi3_cost.toInt)
   }
 }
 
 class Frozen(char: Character) extends State(char) {
-  val calc: AbilityCalc = new AbilityCalc(char)
+  /*
+  The Frozen state class is a debuffed state - requires three 1st skills to unfreeze
+    1st Ability - Heart-warm:  1/3 steps to unfreeze
+  */
+  this.char.State = "Frozen"
+  val calc: abilityCalculator = new abilityCalculator(char)
   var round_counter: Int = 2
 
   char.abi1_status = "ok"
@@ -281,12 +254,14 @@ class Frozen(char: Character) extends State(char) {
   char.abi2_target = "nobody"
   char.abi2_effect = ""
   char.abi2_cost = ""
+
   char.abi3_status = "lock"
   char.abi3_name = ""
   char.abi3_description = ""
   char.abi3_target = "nobody"
   char.abi3_effect = ""
   char.abi3_cost = ""
+
   char.abi4_status = "lock"
   char.abi4_name = ""
   char.abi4_description = ""
@@ -294,11 +269,8 @@ class Frozen(char: Character) extends State(char) {
   char.abi4_effect = ""
   char.abi4_cost = ""
 
-  // METHOD
-
   override def Skill1(target: Character): String = {
     this.round_counter -= 1
-
     if (this.round_counter == 0){
       if (this.char.Class == "Northern Warrior"){
         this.char.state = new Knight(this.char)
@@ -310,19 +282,23 @@ class Frozen(char: Character) extends State(char) {
         this.char.state = new Crusader(this.char)
       }
     }
-    this.calc.TimeString() + "Meow-meow-meow"
+    this.calc.getTimeString() + "Meow-meow-meow"
   }
   override def Skill2(target: Character): String = {"lock"}
   override def Skill3(target: Character): String = {"lock"}
   override def Skill4(target: Character): String = {"lock"}
-  override def CheckAbilities(): Unit ={}
+  override def checkAbilities(): Unit ={}
 }
 
 
 class Dead(char: Character) extends State(char) {
+  /*
+  The Dead state speaks for itself. The dead man waits to be awaken by Necromancer
+  */
+  this.char.State = "Dead"
   override def Skill1(target: Character): String = {"lock"}
   override def Skill2(target: Character): String = {"lock"}
   override def Skill3(target: Character): String = {"lock"}
   override def Skill4(target: Character): String = {"lock"}
-  override def CheckAbilities(): Unit ={}
+  override def checkAbilities(): Unit ={}
 }

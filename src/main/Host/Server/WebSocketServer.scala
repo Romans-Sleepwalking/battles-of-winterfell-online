@@ -1,7 +1,7 @@
 package Host.Server
 
-import Host.Lobby.Player
-import Host.{ActionDemo, FightDemo}
+import Host.Lobby.Lobby
+import Host.{Join, Leave, Action}
 import akka.actor.{ActorRef, ActorSystem, PoisonPill, Props}
 import com.corundumstudio.socketio.listener.{ConnectListener, DataListener, DisconnectListener}
 import com.corundumstudio.socketio.{AckRequest, Configuration, SocketIOClient, SocketIOServer}
@@ -9,11 +9,14 @@ import play.api.libs.json.JsValue
 
 
 class Server() {
+  var lobbies: List[Lobby] = List(new Lobby(1), new Lobby(2))
+
+
   class ActionListener(server: Server) extends DataListener[JsValue] {
-    override def onData(socket: SocketIOClient, actionData: JsValue, ackRequest: AckRequest): Unit = {
+    override def onData(socket: SocketIOClient, choice: JsValue, ackRequest: AckRequest): Unit = {
       println(socket + "'s character is trying to do something!")
-      val actor: ActorRef = server.Socket_2_Actor(socket)
-      actor ! ActionDemo(actionData, socket)
+      val actor: ActorRef = server.socketToActor(socket)
+      actor ! Action(choice)
     }
   }
 
@@ -21,14 +24,12 @@ class Server() {
   class ConnectionListener(server: Server) extends ConnectListener {
     override def onConnect(socket: SocketIOClient): Unit = {
       println(socket + " connected!")
-
-      if (!server.Socket_2_Actor.contains(socket)) {
+      if (!server.socketToActor.contains(socket)) {
         val system = ActorSystem()
-        val actor: ActorRef = system.actorOf(Props(classOf[MainActorDemo], server))
-        server.Socket_2_Actor += (socket -> actor)
-        server.Actor_2_Socket += (actor -> socket)
-
-        actor ! FightDemo(socket)
+        val actor: ActorRef = system.actorOf(Props(classOf[GameActor], socket, server))
+        server.socketToActor += (socket -> actor)
+        server.actorToSocket += (actor -> socket)
+        actor ! Join
       }
     }
   }
@@ -36,11 +37,13 @@ class Server() {
 
   class DisconnectionListener(server: Server) extends DisconnectListener {
     override def onDisconnect(socket: SocketIOClient): Unit = {
-      if (server.Socket_2_Actor.contains(socket)) {
-        server.Socket_2_Actor(socket) ! PoisonPill
-        val username = server.Socket_2_Actor(socket)
-        server.Socket_2_Actor -= socket
-        server.Actor_2_Socket -= username
+      if (server.socketToActor.contains(socket)){
+        val actor: ActorRef = server.socketToActor(socket)
+        actor ! Leave
+        server.socketToActor(socket) ! PoisonPill
+        val username = server.socketToActor(socket)
+        server.socketToActor -= socket
+        server.actorToSocket -= username
         println(username + " Disconnected")
       }
     }
@@ -54,9 +57,8 @@ class Server() {
     }
   }
 
-  var Actor_2_Socket: Map[ActorRef, SocketIOClient] = Map()
-  var Socket_2_Actor: Map[SocketIOClient, ActorRef] = Map()
-  var Socket_2_Player: Map[SocketIOClient, Player] = Map()
+  var actorToSocket: Map[ActorRef, SocketIOClient] = Map()
+  var socketToActor: Map[SocketIOClient, ActorRef] = Map()
 
   val config: Configuration = new Configuration {
     setHostname("localhost")

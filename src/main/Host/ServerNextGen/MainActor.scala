@@ -1,5 +1,6 @@
 package Host.ServerNextGen
 
+/*
 import Host.Lobby.Lobby
 import play.api.libs.json.JsValue
 import akka.actor.{Actor, ActorRef}
@@ -8,7 +9,6 @@ import com.corundumstudio.socketio.SocketIOClient
 
 
 class MainActor(DB: ActorRef) extends Actor {
-
   def receive: Receive = {
 
     case SignUp(regData: JsValue, socket: SocketIOClient) =>
@@ -24,3 +24,4 @@ class MainActor(DB: ActorRef) extends Actor {
       // TODO
   }
 }
+*/

@@ -21,9 +21,8 @@ class Lobby(val number: Int) {
 
     3) FULL State:
       ·) state = 'full'
-      ·) method Leave assigns a lose to the player left  ->  moves to the ABANDONED TODO: Implement this
-        1-  Creates a new Game
-        2-  Destroys itself then the game is over  ->  moves to the ABANDONED TODO: Implement this
+      ·) method Leave assigns a lose to the player left  ->  moves to the ABANDONED
+      ·) creates a new Game
 
     4) ABANDONED State:
       ·) state = 'abandoned'
@@ -57,6 +56,7 @@ class Empty(lobby: Lobby) extends State(lobby) {
 
   override def Join(P: Player): Unit = {
     lobby.P1 = P
+    lobby.P1.side = "L"
     Message.One(lobby.P1, "Welcome to the room " + lobby.number + ", " + lobby.P1.name + "!")
     lobby.state = new Waiting(lobby)
   }
@@ -72,6 +72,7 @@ class Waiting(lobby: Lobby) extends State(lobby) {
 
   override def Join(P: Player): Unit = {
     lobby.P2 = P
+    lobby.P2.side = "R"
     Message.One(lobby.P1, "Player 2 has joined! Say \"hello\" to " + lobby.P2.name + ".")
     Message.One(lobby.P2, "Welcome to the room " + lobby.number + ", " + lobby.P2.name + "! Say \"hello\" to " + lobby.P1.name)
     lobby.state = new Full(lobby)

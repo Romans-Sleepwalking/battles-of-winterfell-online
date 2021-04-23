@@ -13,12 +13,15 @@ class Player(val name: String, val socket: SocketIOClient) {
     ·) name
     ·) socket — client web address
     ·) four characters to play with based on random basic set: Northern Alliance [50%] or Undead Army [50%]
+    ·) game reference
   */
-
   var char1: Character = _
   var char2: Character = _
   var char3: Character = _
   var char4: Character = _
+  var numCharactersAlive: Int = 4
+  var game: Game = _
+  var side: String = _
 
   if (scala.util.Random.nextFloat >= 0.5){
     this.char1 = new Character(

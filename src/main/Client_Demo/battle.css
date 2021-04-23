@@ -153,16 +153,16 @@ body {
     font-size: 70%;
 }
 #skill-icon-1 {
-    background-image: url("img/skills/Crusader/1.jpg");
+    background-image: url("img/skills/loading.jpg");
 }
 #skill-icon-2 {
-    background-image: url("img/skills/Crusader/2.jpg");
+    background-image: url("img/skills/loading.jpg");
 }
 #skill-icon-3 {
-    background-image: url("img/skills/Crusader/3.jpg");
+    background-image: url("img/skills/loading.jpg");
 }
 #skill-icon-4 {
-    background-image: url("img/skills/Crusader/4.jpg");
+    background-image: url("img/skills/loading.jpg");
 }
 
 div.ex3 {
