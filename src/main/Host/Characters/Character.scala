@@ -1,6 +1,6 @@
-package Host.Characters
+package main.Host.Characters
 
-import Host.Lobby.Player
+import main.Host.Lobby.Player
 
 class Character(
     val owner: Player,
@@ -73,6 +73,7 @@ class Character(
     if (this.HP <= 0){
       this.HP = 0
       this.MP = 0
+      this.owner.numCharactersAlive -= 1
       this.state = new Dead(this)
     }
   }

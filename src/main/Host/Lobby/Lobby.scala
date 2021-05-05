@@ -1,6 +1,6 @@
- package Host.Lobby
+ package main.Host.Lobby
 
- import Host.Server.Message
+ import main.Host.Server.Message
 
 
 class Lobby(val number: Int) {
@@ -56,7 +56,7 @@ class Empty(lobby: Lobby) extends State(lobby) {
 
   override def Join(P: Player): Unit = {
     lobby.P1 = P
-    lobby.P1.side = "L"
+    println("P1 joined room!")
     Message.One(lobby.P1, "Welcome to the room " + lobby.number + ", " + lobby.P1.name + "!")
     lobby.state = new Waiting(lobby)
   }
@@ -72,7 +72,7 @@ class Waiting(lobby: Lobby) extends State(lobby) {
 
   override def Join(P: Player): Unit = {
     lobby.P2 = P
-    lobby.P2.side = "R"
+    println("P2 joined room!")
     Message.One(lobby.P1, "Player 2 has joined! Say \"hello\" to " + lobby.P2.name + ".")
     Message.One(lobby.P2, "Welcome to the room " + lobby.number + ", " + lobby.P2.name + "! Say \"hello\" to " + lobby.P1.name)
     lobby.state = new Full(lobby)
@@ -86,7 +86,6 @@ class Waiting(lobby: Lobby) extends State(lobby) {
 
 class Full(lobby: Lobby) extends State(lobby) {
   lobby.State = "full"
-  Message.Both(lobby.P1, lobby.P2, "The game begins!")
 
   val game = new Game(this.lobby.P1, this.lobby.P2)  // Game Launch!
 

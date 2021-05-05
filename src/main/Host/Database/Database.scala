@@ -1,4 +1,6 @@
+/*
 package Host.Database
+
 
 import com.corundumstudio.socketio.SocketIOClient
 import play.api.libs.json.{JsValue, Json}
@@ -76,3 +78,4 @@ class Database {
     updateWinsStatement.executeQuery()  // executes: increment accounts loses by 1
   }
 }
+*/

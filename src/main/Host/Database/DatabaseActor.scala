@@ -1,4 +1,6 @@
+/*
 package Host.Database
+
 
 import akka.actor.Actor
 import Host.{Login, SignUp, incrementWins, incrementLoses}
@@ -24,3 +26,4 @@ class DatabaseActor() extends Actor {
   }
 }
 
+*/

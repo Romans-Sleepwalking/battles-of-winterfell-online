@@ -1,22 +1,22 @@
-package Host.Server
+package main.Host.Server
 
-import Host.Lobby.Lobby
-import Host.{Join, Leave, Action}
+import main.Host.Lobby.Lobby
+import main.Host.{Join, Leave, Action}
 import akka.actor.{ActorRef, ActorSystem, PoisonPill, Props}
 import com.corundumstudio.socketio.listener.{ConnectListener, DataListener, DisconnectListener}
 import com.corundumstudio.socketio.{AckRequest, Configuration, SocketIOClient, SocketIOServer}
-import play.api.libs.json.JsValue
+import play.api.libs.json.Json
 
 
 class Server() {
   var lobbies: List[Lobby] = List(new Lobby(1), new Lobby(2))
 
 
-  class ActionListener(server: Server) extends DataListener[JsValue] {
-    override def onData(socket: SocketIOClient, choice: JsValue, ackRequest: AckRequest): Unit = {
+  class ActionListener(server: Server) extends DataListener[String] {
+    override def onData(socket: SocketIOClient, data: String, ackRequest: AckRequest): Unit = {
       println(socket + "'s character is trying to do something!")
       val actor: ActorRef = server.socketToActor(socket)
-      actor ! Action(choice)
+      actor ! Action(data)
     }
   }
 
@@ -67,7 +67,7 @@ class Server() {
 
   val server: SocketIOServer = new SocketIOServer(config)
 
-  server.addEventListener("action", classOf[JsValue], new ActionListener(this))
+  server.addEventListener("action", classOf[String], new ActionListener(this))
   server.addConnectListener(new ConnectionListener(this))
   server.addDisconnectListener(new DisconnectionListener(this))
   server.addEventListener("stop", classOf[Nothing], new StopServer(this))

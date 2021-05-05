@@ -1,10 +1,10 @@
-package Host.Lobby
+package main.Host.Lobby
 
-import Host.Characters.Character
+import main.Host.Characters.Character
 import com.corundumstudio.socketio.SocketIOClient
 
 
-class Player(val name: String, val socket: SocketIOClient) {
+class Player(val name: String, val socket: SocketIOClient = null) {
   /*
   The Player class represents the player - the entity which choose actions based on received information.
   Every Player must be initialized when will be connected to the server.
@@ -99,6 +99,7 @@ class Player(val name: String, val socket: SocketIOClient) {
       12
     )
   }
+  val party: List[Character] = List(this.char1, this.char2, this.char3, this.char4)
 }
 
 

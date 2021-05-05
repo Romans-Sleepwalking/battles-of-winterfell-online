@@ -4,40 +4,49 @@
     <meta charset="UTF-8">
     <title>Battles of Winterfell Online</title>
     <link rel="stylesheet" href="battle.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 </head>
 <body>
     <div class="slots">
         <div class="slot" id="slot1">
-            <img src="img/models/L/Zombie/Passive.png" width="250" height="250" alt="char1" id="char-1">
+            <img class="ch-img" src="img/models/L/Zombie/Passive.png" alt="char1" id="char-1">
             <button id="btn1" class="btn" onclick="selectTargetListener('1', 'Snow')" value="Choose">Select</button>
+            <img class="circle" src="img/circle.png" alt="cir" id="circle-1">
         </div>
         <div class="slot" id="slot2">
-            <img src="img/models/L/Zombie/Passive.png" width="250" height="250" alt="char2" id="char-2">
+            <img class="ch-img" src="img/models/L/Zombie/Passive.png" alt="char2" id="char-2">
             <button id="btn2" class="btn" onclick="selectTargetListener('2', 'Commander')" value="Choose">Select</button>
+            <img class="circle" src="img/circle.png" alt="cir" id="circle-2">
         </div>
         <div class="slot" id="slot3">
-            <img src="img/models/L/Zombie/Passive.png" width="250" height="250" alt="char3" id="char-3">
+            <img class="ch-img" src="img/models/L/Zombie/Passive.png" alt="char3" id="char-3">
             <button id="btn3" class="btn" onclick="selectTargetListener('3')" value="Choose">Select</button>
+            <img class="circle" src="img/circle.png" alt="cir" id="circle-3">
         </div>
         <div class="slot" id="slot4">
-            <img src="img/models/L/Zombie/Passive.png" width="250" height="250" alt="char4" id="char-4">
+            <img class="ch-img" src="img/models/L/Zombie/Passive.png" alt="char4" id="char-4">
             <button id="btn4" class="btn" onclick="selectTargetListener('4')" value="Choose">Select</button>
+            <img class="circle" src="img/circle.png" alt="cir" id="circle-4">
         </div>
         <div class="slot" id="slot5">
-            <img src="img/models/R/Zombie/Passive.png" width="250" height="250" alt="char5" id="char-5">
+            <img class="ch-img" src="img/models/R/Zombie/Passive.png" alt="char5" id="char-5">
             <button id="btn5" class="btn" onclick="selectTargetListener('5')" value="Choose">Select</button>
+            <img class="circle" src="img/circle.png" alt="cir" id="circle-5">
         </div>
         <div class="slot" id="slot6">
-            <img src="img/models/R/Zombie/Passive.png" width="250" height="250" alt="char6" id="char-6">
+            <img class="ch-img" src="img/models/R/Zombie/Passive.png" alt="char6" id="char-6">
             <button id="btn6" class="btn" onclick="selectTargetListener('6')" value="Choose">Select</button>
+            <img class="circle" src="img/circle.png" alt="cir" id="circle-6">
         </div>
         <div class="slot" id="slot7">
-            <img src="img/models/R/Zombie/Passive.png" width="250" height="250" alt="char7" id="char-7">
+            <img class="ch-img" src="img/models/R/Zombie/Passive.png" alt="char7" id="char-7">
             <button id="btn7" class="btn" onclick="selectTargetListener('7')" value="Choose">Select</button>
+            <img class="circle" src="img/circle.png" alt="cir" id="circle-7">
         </div>
         <div class="slot" id="slot8">
-            <img src="img/models/R/Zombie/Passive.png" width="250" height="250" alt="char8" id="char-8">
+            <img class="ch-img" src="img/models/R/Zombie/Passive.png" alt="char8" id="char-8">
             <button id="btn8" class="btn" onclick="selectTargetListener('8')" value="Choose">Select</button>
+            <img class="circle" src="img/circle.png" alt="cir" id="circle-8">
         </div>
     </div>
 
@@ -69,16 +78,6 @@
 
         <div id="game_console" class="col ex3">Connecting...</div>
     </div>
-
-    <script src="./battle.js"></script>
+    <script src="battle.js"></script>
 </body>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
 </html>

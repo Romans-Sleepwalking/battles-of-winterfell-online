@@ -1,7 +1,8 @@
-package Host.Server
+package main.Host.Server
 
-import Host.Lobby.{Game, Player}
-import Host.Characters.Character
+import main.Host.Lobby.{Game, Player}
+import main.Host.Characters.Character
+import main.Host.Lobby.targetFinder.getTargets
 import play.api.libs.json._
 
 object Message {
@@ -22,41 +23,45 @@ object Message {
     "side" -> char.owner.side,
     "name" -> char.name,
     "class" -> char.Class,
-    "img" -> "Snow",
-    "state" -> "passive",
-    "HP" -> char.HP,
-    "maxHP" -> char.maxHP,
-    "MP" -> char.MP,
-    "maxMP" -> char.maxMP,
+    "img" -> char.img,
+    "state" -> char.State,
+    "HP" -> char.HP.toString(),
+    "maxHP" -> char.maxHP.toString(),
+    "MP" -> char.MP.toString(),
+    "maxMP" -> char.maxMP.toString(),
     "abi1" -> Json.obj(
+      "num" -> 1,
       "status" -> char.abi1_status,
       "name" -> char.abi1_name,
       "description" -> char.abi1_description,
-      "target" -> char.abi1_target,
+      "target" -> Json.toJson(getTargets(char.abi1_target, char, game)), // JS array
       "effect" -> char.abi1_effect,
       "cost" -> char.abi1_cost,
     ),
     "abi2" -> Json.obj(
+      "num" -> 2,
       "status" -> char.abi2_status,
       "name" -> char.abi2_name,
       "description" -> char.abi2_description,
-      "target" -> char.abi2_target,
+      "target" -> Json.toJson(getTargets(char.abi2_target, char, game)),
       "effect" -> char.abi2_effect,
       "cost" -> char.abi2_cost,
     ),
     "abi3" -> Json.obj(
+      "num" -> 3,
       "status" -> char.abi3_status,
       "name" -> char.abi3_name,
       "description" -> char.abi3_description,
-      "target" -> char.abi3_target,
+      "target" -> Json.toJson(getTargets(char.abi3_target, char, game)),
       "effect" -> char.abi3_effect,
       "cost" -> char.abi3_cost,
     ),
     "abi4" -> Json.obj(
+      "num" -> 4,
       "status" -> char.abi4_status,
       "name" -> char.abi4_name,
       "description" -> char.abi4_description,
-      "target" -> char.abi4_target,
+      "target" -> Json.toJson(getTargets(char.abi4_target, char, game)),
       "effect" -> char.abi4_effect,
       "cost" -> char.abi4_cost,
     ),
@@ -80,23 +85,29 @@ object Message {
   }
 
   def Update(game: Game, msg: String): Unit = {
+    println("sending turn")
     val upd: JsValue = Json.obj(
       "P1" -> playerToJSON(game.P1, game),
       "P2" -> playerToJSON(game.P2, game),
       "msg" -> msg
     )
-    game.P1.socket.sendEvent("upd", upd)
-    game.P2.socket.sendEvent("upd", upd)
+    val JSstring: String = Json.stringify(upd)
+    game.P1.socket.sendEvent("upd", JSstring)
+    game.P2.socket.sendEvent("upd", JSstring)
   }
 
   def Turn(char: Character, game: Game): Unit = {
-    char.owner.socket.sendEvent("turn", characterToJSON(char, game))
+    println("sending turn")
+    val JSstring: String = Json.stringify(characterToJSON(char, game))
+    char.owner.socket.sendEvent("turn", JSstring)
   }
 
-  def Translate(json: JsValue): Map[String, Int] = {
+  def Translate(jsonString: String): Map[String, Int] = {
+    println("JSON action:  " + jsonString)
+    val json: JsValue = Json.parse(jsonString)
     Map(
-      "charID" -> (json \ "char").as[Int],
-      "target" -> (json \ "target").as[Int],
+      "charID" -> (json \ "charID").as[Int],
+      "targetID" -> (json \ "target").as[Int],
       "skill" -> (json \ "skill").as[Int],
     )
   }

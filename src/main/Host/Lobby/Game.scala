@@ -1,7 +1,7 @@
-package Host.Lobby
+package main.Host.Lobby
 
-import Host.Characters.Character
-import Host.Server.Message
+import main.Host.Characters.Character
+import main.Host.Server.Message
 
 import scala.annotation.tailrec
 
@@ -25,6 +25,11 @@ class Game(val P1: Player, val P2: Player) {
     ·)  startTurn method which performs actions 1), 2)
     ·)  endTurn method which performs actions 3), 4), 5)
   */
+  this.P1.side = "L"
+  this.P2.side = "R"
+  this.P1.game = this
+  this.P2.game = this
+
   val charByID: Map[Int, Character] = Map(
     1 -> this.P1.char1,
     2 -> this.P1.char2,
@@ -54,8 +59,10 @@ class Game(val P1: Player, val P2: Player) {
   charByID(7).next = charByID(1)
   charByID(1).next = charByID(8)
   charByID(8).next = charByID(4)
+  //
 
   def startTurn(char: Character): Unit ={
+    println("about to send a turn")
     if (char.owner == this.P1){
       Message.Turn(char, this)
       Message.One(this.P2, "It is " + this.P1.name + "'s turn. Please wait.")
@@ -85,7 +92,7 @@ class Game(val P1: Player, val P2: Player) {
     // Recursively finds the next living character
     @tailrec
     def avoidDeadCharacters(char: Character): Character ={
-      if (char.State != "dead") {
+      if (char.State != "Dead") {
         char
       }
       else {
@@ -97,11 +104,15 @@ class Game(val P1: Player, val P2: Player) {
       startTurn(avoidDeadCharacters(char.next))
     }
     else if (P1.numCharactersAlive == 0){
-      Message.Both(this.P1, this.P2, "Game Over! " + this.P2.name + "'s party is dead! " + this.P1.name + " won!!!")
+      Message.Both(this.P1, this.P2, "GAME OVER! " + this.P2.name + "'s party is dead! " + this.P1.name + " won!!!")
     }
     else if (P2.numCharactersAlive == 0){
-      Message.Both(this.P1, this.P2, "Game Over! " + this.P1.name + "'s party is dead! " + this.P2.name + " won!!!")
+      Message.Both(this.P1, this.P2, "GAME OVER! " + this.P1.name + "'s party is dead! " + this.P2.name + " won!!!")
     }
+  }
+  if (this.P1.socket != null){ // Filter for testing purposes
+    Message.Update(this, "GAME BEGINS!")
+    this.startTurn(charByID(4))
   }
 }
 

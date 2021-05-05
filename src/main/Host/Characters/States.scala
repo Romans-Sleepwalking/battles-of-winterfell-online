@@ -1,4 +1,4 @@
-package Host.Characters
+package  main.Host.Characters
 
 
 class Knight(char: Character) extends State(char) {
@@ -7,7 +7,7 @@ class Knight(char: Character) extends State(char) {
     1st Ability - Attack:   1.0 attack damage
     2nd Ability - Rush:     1.7 attack damage for 15 mana points
   */
-  this.char.State = "ok"
+  this.char.State = "Passive"
   val calc: abilityCalculator = new abilityCalculator(char)
   val dmg: Int = this.calc.haveAttack
 
@@ -56,20 +56,20 @@ class Necromancer(val char: Character) extends State(char) {
     3rd Ability - Freeze:   resurrects dead unit for 30 mana points
     4th Ability - Critical: 3.5 attack damage for 30 mana points
   */
-  this.char.State = "ok"
+  this.char.State = "Passive"
   val calc: abilityCalculator = new abilityCalculator(char)
   val dmg: Int = this.calc.haveAttack
 
   char.abi2_status = "ok"
   char.abi2_name = "Summon"
-  char.abi2_description = "Animates fallen dead walkers"
+  char.abi2_description = "Animates undead"
   char.abi2_target = "corpse"
   char.abi2_effect = "Passive"
   char.abi2_cost = "30"
 
   char.abi3_status = "ok"
   char.abi3_name = "Freeze"
-  char.abi3_description = "Freezes the enemy"
+  char.abi3_description = "Freezes enemy"
   char.abi3_target = "enemy"
   char.abi3_effect = "Frozen"
   char.abi3_cost = "40"
@@ -88,6 +88,7 @@ class Necromancer(val char: Character) extends State(char) {
     this.char.MP - this.char.abi2_cost.toInt
     target.HP = 8 * this.char.INT
     target.MP = 4 * this.char.INT
+    target.owner.numCharactersAlive += 1
     target.state = new Knight(target)
     target.Update()
     this.calc.getActionStatement("animated", (4 * this.char.INT).toString, "mana points", target)
@@ -118,7 +119,7 @@ class Crusader(val char: Character) extends State(char) {
     3rd Ability - Morale:    heals and makes more agile the allies for 40 mana points
     4th Ability - Jagerbomb: re-states to angel for 70 mana points
   */
-  this.char.State = "ok"
+  this.char.State = "Passive"
   val calc: abilityCalculator = new abilityCalculator(char)
   val dmg: Int = this.calc.haveAttack
 
@@ -131,14 +132,14 @@ class Crusader(val char: Character) extends State(char) {
 
   char.abi3_status = "ok"
   char.abi3_name = "Morale"
-  char.abi3_description = "Cheer up the team"
-  char.abi3_target = "team"
+  char.abi3_description = "Cheer up"
+  char.abi3_target = "self"
   char.abi3_effect = "Blessed"
   char.abi3_cost = "40"
 
   char.abi4_status = "ok"
   char.abi4_name = "Jägerbomb"
-  char.abi4_description = "RedBull gives you wings"
+  char.abi4_description = "RedBull gives wings"
   char.abi4_target = "self"
   char.abi4_effect = "Passive"
   char.abi4_cost = "80"
@@ -179,7 +180,7 @@ class Angel(val char: Character) extends State(char) {
     3rd Ability - Morale:    heals and makes more agile the allies for 40 mana points
   */
   this.char.Class = "Angel"
-  this.char.State = "ok"
+  this.char.State = "Passive"
   this.char.maxHP = 999
   this.char.maxMP = 999
   this.char.HP += 50
@@ -243,7 +244,7 @@ class Frozen(char: Character) extends State(char) {
 
   char.abi1_status = "ok"
   char.abi1_name = "Heart-warm"
-  char.abi1_description = "Think about kittens to unfreeze"
+  char.abi1_description = "Unfreeze"
   char.abi1_target = "self"
   char.abi1_effect = "Warmed"
   char.abi1_cost = "0"

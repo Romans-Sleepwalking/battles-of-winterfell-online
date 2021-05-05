@@ -59,7 +59,7 @@ body {
     z-index: 4;
 }
 
-.slot img {
+.slot .ch-img {
     position: relative;
     height: 20.5vw;
     width: 20.5vw;
@@ -78,7 +78,39 @@ body {
     cursor: pointer;
     border-radius: 5px;
 }
+.slot .circle {
+    position: absolute;
+    top: 70%;
+    left: 20%;
+    height: 20%;
+    width: 60%;
+    visibility: hidden;
+}
 
+#btn1{
+    visibility: hidden;
+}
+#btn2{
+    visibility: hidden;
+}
+#btn3{
+    visibility: hidden;
+}
+#btn4{
+    visibility: hidden;
+}
+#btn5{
+    visibility: hidden;
+}
+#btn6{
+    visibility: hidden;
+}
+#btn7{
+    visibility: hidden;
+}
+#btn8{
+    visibility: hidden;
+}
 
 #optionMenu {
     background-image: url("img/panel.jpg");
@@ -129,16 +161,16 @@ body {
     font-size: 70%;
 }
 #skill-icon-1 {
-    background-image: url("img/skills/Crusader/1.jpg");
+    background-image: url("img/skills/loading.jpg");
 }
 #skill-icon-2 {
-    background-image: url("img/skills/Crusader/2.jpg");
+    background-image: url("img/skills/loading.jpg");
 }
 #skill-icon-3 {
-    background-image: url("img/skills/Crusader/3.jpg");
+    background-image: url("img/skills/loading.jpg");
 }
 #skill-icon-4 {
-    background-image: url("img/skills/Crusader/4.jpg");
+    background-image: url("img/skills/loading.jpg");
 }
 
 div.ex3 {
