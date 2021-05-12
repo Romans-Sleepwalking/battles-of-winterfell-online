@@ -11,4 +11,4 @@ This app use:
  - HTML-CSS-JS client
       
 Note:
-- The game has no hosting yet
+- The game has not been hosted yet
