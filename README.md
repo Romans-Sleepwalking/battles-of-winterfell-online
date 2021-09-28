@@ -4,11 +4,12 @@
 ---
 [YouTube DEMO](https://www.youtube.com/watch?v=YynArXNxE9Q&ab_channel=Romans "Romans Sleepwalking YouTube Channel")
 ---
-Battles of Winterfell Online is a MMO-JRPG browser game application. The app connects two players to fight against each other.
+MMO-JRPG browser game server. The app connects pairs of hundreds of players to fight in "Pokemon" style.
 
-This app use:
- - Scala WebSocket server with ActorSystem
- - HTML-CSS-JS client
-      
+Technology choice:
+ - Scala WebSocket server
+ - ActorSystem
+ - Browser client (HTML-CSS-JS)
+
 Note:
-- The game has not been hosted yet
+- The game has not been publicly hosted yet 
