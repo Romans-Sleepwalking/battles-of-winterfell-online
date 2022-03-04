@@ -4,7 +4,7 @@
 ---
 [YouTube DEMO](https://www.youtube.com/watch?v=Gn7JK52SucE&t=7s&ab_channel=Romans "Romans Sleepwalking YouTube Channel")
 ---
-The gaming server program. The program establishes a server run-time for hosting a PvP MMO-JRPG games with "Game of Thrones" setting. The server connects visitors -> provides the online gaming experience -> cleans and re-use lobbies after players leave.
+The gaming server program. The program establishes a server run-time for hosting a PvP MMO-JRPG games with "Game of Thrones" setting. The server connects visitors; provides the online gaming experience; cleans up and re-uses lobbies after players leave.
 
 This app use:
  - Scala as a programming language because it effectively combines OOP and Parallel Computing paradigms. Scala is a great well-known solution for building online systems with massive and complex user interaction.
