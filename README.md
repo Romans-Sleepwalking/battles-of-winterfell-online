@@ -12,4 +12,3 @@ This app use:
  - AkkaActor library to set up concurrent actor system for effective and stable service for a numerous user-base.
  - Open-source visuals: fonts, icons.
  - Self-constructed pixel-art.
- 
